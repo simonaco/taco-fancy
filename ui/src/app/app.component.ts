@@ -23,6 +23,6 @@ export class AppComponent {
   ];
 
   constructor() {
-    this.title = 'Taco Fancy';
+    this.title = 'Taco Fancy 🌮';
   }
 }
