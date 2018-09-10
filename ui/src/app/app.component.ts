@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Nav } from './nav.model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ui';
+  title: string;
+
+  nav: Nav[] = [
+    {
+      link: '/',
+      name: 'Home',
+      exact: true
+    },
+    {
+      link: '/tacos',
+      name: 'Tacos',
+      exact: false
+    }
+  ];
+
+  constructor() {
+    this.title = 'Taco Fancy';
+  }
 }
