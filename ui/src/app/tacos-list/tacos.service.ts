@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Taco } from './taco.model';
 
-const TACOS_API = '/api';
+const TACOS_API = 'https://tacofancy-api.azurewebsites.net/api';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +11,7 @@ export class TacosService {
   constructor(private http: HttpClient) {}
 
   getTacos() {
-    return this.http.get<Array<Taco>>(`${TACOS_API}/tacos`);
+    return this.http.get<Array<Taco>>(`${TACOS_API}/recipes`);
   }
 
   deleteTaco(taco: Taco) {
