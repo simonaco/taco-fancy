@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { AppInsights } from 'applicationinsights-js';
 @Component({
   selector: 'app-not-found',
   template: `
@@ -9,4 +9,8 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class NotFoundComponent {}
+export class NotFoundComponent implements OnInit {
+  ngOnInit() {
+    AppInsights.trackPageView('not-found');
+  }
+}
