@@ -1,31 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Nav } from './nav.model';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { AppInsights } from 'applicationinsights-js';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: '<router-outlet></router-outlet>',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title: string;
-
-  nav: Nav[] = [
-    {
-      link: '/',
-      name: 'Home',
-      exact: true
-    },
-    {
-      link: '/tacos',
-      name: 'Tacos',
-      exact: false
-    }
-  ];
-
-  constructor() {
-    this.title = 'Taco Fancy 🌮';
-  }
+  constructor(public router: Router) {}
 
   ngOnInit() {
     AppInsights.downloadAndSetup({
@@ -36,6 +19,16 @@ export class AppComponent implements OnInit {
       AppInsights.context.addTelemetryInitializer(envelope => {
         envelope.tags['ai.cloud.role'] = 'UI';
       });
+    });
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/') {
+          AppInsights.trackPageView('home');
+        } else {
+          AppInsights.trackPageView(event.url.substring(1));
+        }
+      }
     });
   }
 }
