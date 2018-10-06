@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DeviceDetectorModule } from 'ngx-device-detector';
 import { AppRoutingModule } from './app-routing.module';
 import { TacosListModule } from './tacos-list/tacos-list.module';
 import { AppComponent } from './app.component';
@@ -14,7 +15,8 @@ import { LandingComponent } from './landing/landing.component';
     BrowserModule,
     TacosListModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
