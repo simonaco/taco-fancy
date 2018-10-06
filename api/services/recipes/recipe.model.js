@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Ingredient = require('./ingredient.model');
+var Schema = mongoose.Schema;
 const RecipeSchema = new mongoose.Schema(
   {
     category: {
@@ -15,17 +15,14 @@ const RecipeSchema = new mongoose.Schema(
     },
     title: String,
     description: String,
-    ingredientId: String,
-    directions: String,
-    tags: String
+    ingredients: [{ type: Schema.Types.ObjectId, ref: 'Ingredient' }],
+    steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }],
+    tags: [String]
   },
   {
     collection: 'Recipes',
     read: 'nearest'
   }
 );
-RecipeSchema.methods.ingredients = () => {
-  return Ingredient.findById(this.ingredientId);
-};
 const Recipe = mongoose.model('Recipe', RecipeSchema);
 module.exports = Recipe;

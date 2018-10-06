@@ -3,9 +3,11 @@ const IngredientSchema = new mongoose.Schema(
   {
     name: String,
     quantity: String,
+    directions: String,
+    size: String,
     measure: {
       type: String,
-      enum: ['CUP', 'TABLESPOON', 'PINT']
+      enum: ['CUP', 'TABLESPOON', 'PINT', 'HANDFUL', 'CLOVES']
     }
   },
   {
