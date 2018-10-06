@@ -13,7 +13,6 @@ export class TacosListComponent implements OnInit {
   constructor(private tacosService: TacosService) {}
 
   ngOnInit() {
-    AppInsights.trackPageView('tacos');
     this.tacosService.getTacos().subscribe(tacos => (this.tacos = tacos));
   }
 }
