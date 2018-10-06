@@ -5,8 +5,9 @@ const context = appInsights.defaultClient.context;
 context.tags[context.keys.cloudRole] = 'backend';
 appInsights.start();
 module.exports = async function(context, req) {
+  const SIZE = 10;
   await recipes
-    .getRecipes()
+    .getRecipes(req.body.sort, req.body.order, req.body.page, SIZE)
     .then(recipes => {
       context.res = {
         body: recipes
