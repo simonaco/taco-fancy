@@ -16,11 +16,13 @@ type Ingredient {
     name: String!
     quantity: Int
     measure: Measure
+    directions: String
+    size: String
 }
 type Step {
-    number: Int
+    number: String
     description: String
-    time: Int
+    time: String
 }
 type Recipe {
     id: ID
@@ -28,9 +30,8 @@ type Recipe {
     title: String
     description: String
     ingredients: [Ingredient]
-    directions: String
-    tags: String
-    
+    steps: [Step]
+    tags: [String] 
 }
 type Query {
     findAll:[Recipe]
