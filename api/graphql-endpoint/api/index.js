@@ -7,7 +7,7 @@ module.exports = async function(context, req) {
   context.log(`GraphQL request: ${body}`);
 
   await graphql(
-    schema,
+    schema.schema,
     body.query,
     root,
     null,
