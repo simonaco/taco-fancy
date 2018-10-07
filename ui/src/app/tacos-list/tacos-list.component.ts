@@ -4,6 +4,7 @@ import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { TacosService } from './tacos.service';
 import { Taco } from './taco.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tacos-list',
@@ -20,7 +21,7 @@ export class TacosListComponent implements OnInit {
 
   resultsLength = 0;
   isLoadingResults = true;
-  constructor(private tacosService: TacosService) {}
+  constructor(private router: Router, private tacosService: TacosService) {}
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.
@@ -53,5 +54,9 @@ export class TacosListComponent implements OnInit {
         })
       )
       .subscribe(data => (this.tacos = data));
+  }
+
+  viewRecipe(id) {
+    this.router.navigate(['/tacos', id]);
   }
 }

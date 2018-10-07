@@ -18,6 +18,10 @@ export class TacosService {
     );
   }
 
+  getTaco(id) {
+    return this.http.get<Taco>(`${TACOS_API}/recipes/${id}`);
+  }
+
   deleteTaco(taco: Taco) {
     return this.http.delete(`${TACOS_API}/taco/${taco.id}`);
   }

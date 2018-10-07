@@ -1,7 +1,21 @@
 export interface Taco {
-  id: string;
+  _id: string;
   title: string;
   description: string;
-  directions: string;
+  steps: Step[];
+  ingredients: Ingredient[];
   tags: string;
+}
+
+export interface Ingredient {
+  directions: string;
+  measure: string;
+  name: string;
+  quantity: string;
+}
+
+export interface Step {
+  description: string;
+  number: number;
+  time: string;
 }
