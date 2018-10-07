@@ -6,11 +6,14 @@ context.tags[context.keys.cloudRole] = 'backend';
 appInsights.start();
 module.exports = async function(context, req) {
   const SIZE = 10;
+  const sort = req.query.sort ? req.query.sort : 'title';
+  const order = req.query.order ? req.query.order : 'asc';
+  const page = req.query.page ? req.query.page : 1;
   await recipes
-    .getRecipes(req.body.sort, req.body.order, req.body.page, SIZE)
-    .then(recipes => {
+    .getRecipes(sort, order, page, SIZE)
+    .then(data => {
       context.res = {
-        body: recipes
+        body: data
       };
     })
     .catch(err => {

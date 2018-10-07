@@ -9,6 +9,7 @@ function getRecipes(sort, order, page, size) {
   const direction = order === 'asc' ? 1 : -1;
   var sortObject = {};
   sortObject[sort] = direction;
+  var countQuery = Recipe.count();
   const docQuery = Recipe.find({}).read(ReadPreference.NEAREST);
   return new Promise((resolve, reject) => {
     docQuery
@@ -19,7 +20,13 @@ function getRecipes(sort, order, page, size) {
       .populate('ingredients')
       .exec()
       .then(recipes => {
-        resolve(recipes);
+        if (recipes.length === 0)
+          console.log('There are no results matching your query.');
+        else {
+          countQuery.exec().then(count => {
+            resolve({ items: recipes, totalItems: count });
+          });
+        }
       })
       .catch(err => {
         reject(err.status);
