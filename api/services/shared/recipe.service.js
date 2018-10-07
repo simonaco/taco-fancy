@@ -34,6 +34,27 @@ function getRecipes(sort, order, page, size) {
   });
 }
 
+function getRecipe(id) {
+  const docQuery = Recipe.find({ _id: id }).read(ReadPreference.NEAREST);
+  return new Promise((resolve, reject) => {
+    docQuery
+      .populate('steps')
+      .populate('ingredients')
+      .exec()
+      .then(recipes => {
+        if (recipes.length === 0)
+          console.log('There are no results matching your query.');
+        else {
+          resolve(recipes[0]);
+        }
+      })
+      .catch(err => {
+        reject(err.status);
+      });
+  });
+}
+
 module.exports = {
-  getRecipes
+  getRecipes,
+  getRecipe
 };

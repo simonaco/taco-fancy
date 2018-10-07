@@ -1,4 +1,4 @@
-const recipes = require('./recipe.service');
+const recipes = require('../shared/recipe.service');
 const appInsights = require('applicationinsights');
 appInsights.setup();
 const context = appInsights.defaultClient.context;
