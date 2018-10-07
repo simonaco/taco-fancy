@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { AppInsights } from 'applicationinsights-js';
 import { Taco } from './taco.model';
 
 const TACOS_API = 'https://tacofancy-api.azurewebsites.net/api';
@@ -10,8 +12,10 @@ const TACOS_API = 'https://tacofancy-api.azurewebsites.net/api';
 export class TacosService {
   constructor(private http: HttpClient) {}
 
-  getTacos() {
-    return this.http.get<Array<Taco>>(`${TACOS_API}/recipes`);
+  getTacos(sort, order, page) {
+    return this.http.get<Array<Taco>>(
+      `${TACOS_API}/recipes?sort=${sort}&order=${order}&page=${page + 1}`
+    );
   }
 
   deleteTaco(taco: Taco) {

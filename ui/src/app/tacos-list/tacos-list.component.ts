@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
+import { merge, Observable, of as observableOf } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { TacosService } from './tacos.service';
 import { Taco } from './taco.model';
-import { AppInsights } from 'applicationinsights-js';
 
 @Component({
   selector: 'app-tacos-list',
@@ -9,10 +11,47 @@ import { AppInsights } from 'applicationinsights-js';
   styleUrls: ['./tacos-list.component.scss']
 })
 export class TacosListComponent implements OnInit {
+  displayedColumns: string[] = ['title', 'category', 'description'];
   tacos: Taco[];
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+  @ViewChild(MatSort)
+  sort: MatSort;
+
+  resultsLength = 0;
+  isLoadingResults = true;
   constructor(private tacosService: TacosService) {}
 
   ngOnInit() {
-    this.tacosService.getTacos().subscribe(tacos => (this.tacos = tacos));
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          const sort = this.sort.active ? this.sort.active : 'description';
+          const direction =
+            this.sort.direction !== '' ? this.sort.direction : 'asc';
+          return this.tacosService.getTacos(
+            sort,
+            direction,
+            this.paginator.pageIndex
+          );
+        }),
+        map(data => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.resultsLength = data['totalItems'];
+
+          return data['items'];
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          return observableOf([]);
+        })
+      )
+      .subscribe(data => (this.tacos = data));
   }
 }
