@@ -54,7 +54,27 @@ function getRecipe(id) {
   });
 }
 
+function updateRecipe(id, taco) {
+  const docQuery = Recipe.findOneAndUpdate({ _id: id }, taco);
+  return new Promise((resolve, reject) => {
+    docQuery
+      .populate('steps')
+      .populate('ingredients')
+      .exec()
+      .then(recipe => {
+        if (recipe) console.log('There are no results matching your query.');
+        else {
+          resolve(recipe);
+        }
+      })
+      .catch(err => {
+        reject(err.status);
+      });
+  });
+}
+
 module.exports = {
   getRecipes,
-  getRecipe
+  getRecipe,
+  updateRecipe
 };
