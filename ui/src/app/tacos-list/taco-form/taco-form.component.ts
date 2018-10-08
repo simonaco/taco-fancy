@@ -3,13 +3,7 @@ import { Taco } from '../taco.model';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { TacosService } from '../tacos.service';
 import { switchMap } from 'rxjs/operators';
-import {
-  FormGroup,
-  FormControl,
-  FormArray,
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-taco-form',
@@ -41,19 +35,23 @@ export class TacoFormComponent implements OnInit {
           this.tacosService.getTaco(params.get('id'))
         )
       )
-      .subscribe((data: Taco) => {
-        this.taco = data;
-        this.tacosForm.patchValue(data);
-        this.tacosForm.setControl(
-          'ingredients',
-          this.fb.array(this.taco.ingredients || [])
-        );
-        this.tacosForm.setControl(
-          'steps',
-          this.fb.array(this.taco.steps || [])
-        );
-        this.tacosForm.setControl('tags', this.fb.array(this.taco.tags || []));
-      });
+      .subscribe(
+        (data: Taco) => {
+          this.taco = data;
+          this.populateForm(data);
+        },
+        error => console.log(error)
+      );
+  }
+
+  private populateForm(data: Taco) {
+    this.tacosForm.patchValue(data);
+    this.tacosForm.setControl(
+      'ingredients',
+      this.fb.array(data.ingredients || [])
+    );
+    this.tacosForm.setControl('steps', this.fb.array(data.steps || []));
+    this.tacosForm.setControl('tags', this.fb.array(data.tags || []));
   }
 
   get ingredients() {
@@ -75,15 +73,26 @@ export class TacoFormComponent implements OnInit {
       this.router.navigate(['/tacos']);
     }
   }
-  save() {
-    if (this.taco._id) {
-      this.tacosService.updateTaco(this.taco);
-    } else {
-      this.tacosService.addTaco(this.taco);
-    }
-  }
 
   onSubmit() {
-    console.warn(this.tacosForm.value);
+    const newTaco = this.tacosForm.value;
+    if (this.taco._id) {
+      newTaco._id = this.taco._id;
+      this.tacosService.updateTaco(newTaco).subscribe(
+        result => {
+          this.taco = result;
+          this.populateForm(result);
+        },
+        error => console.log(error)
+      );
+    } else {
+      this.tacosService.addTaco(newTaco).subscribe(
+        result => {
+          this.taco = result;
+          this.populateForm(result);
+        },
+        error => console.log(error)
+      );
+    }
   }
 }
