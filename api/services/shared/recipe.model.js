@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 const RecipeSchema = new mongoose.Schema(
   {
     category: {
@@ -15,8 +14,8 @@ const RecipeSchema = new mongoose.Schema(
     },
     title: String,
     description: String,
-    ingredients: [{ type: Schema.Types.ObjectId, ref: 'Ingredient' }],
-    steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }],
+    ingredients: [String],
+    steps: [String],
     tags: [String]
   },
   {
