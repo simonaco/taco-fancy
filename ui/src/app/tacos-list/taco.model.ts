@@ -1,10 +1,10 @@
-export interface Taco {
+export class Taco {
   _id: string;
   title: string;
   description: string;
-  steps: Step[];
-  ingredients: Ingredient[];
-  tags: string;
+  steps: string[];
+  ingredients: string[];
+  tags: string[];
 }
 
 export interface Ingredient {

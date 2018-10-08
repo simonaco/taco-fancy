@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -17,6 +20,7 @@ import { TacoFormComponent } from './taco-form/taco-form.component';
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     TacosListRoutingModule,
     HttpClientModule,
     MatTableModule,
