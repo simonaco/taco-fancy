@@ -1,6 +1,4 @@
 const Recipe = require('./recipe.model');
-const Ingredient = require('./ingredient.model');
-const Step = require('./step.model');
 const ReadPreference = require('mongodb').ReadPreference;
 require('./mongo').connect();
 
@@ -16,8 +14,6 @@ function getRecipes(sort, order, page, size) {
       .skip(skips)
       .limit(size)
       .sort(sortObject)
-      .populate('steps')
-      .populate('ingredients')
       .exec()
       .then(recipes => {
         if (recipes.length === 0)
@@ -38,8 +34,6 @@ function getRecipe(id) {
   const docQuery = Recipe.find({ _id: id }).read(ReadPreference.NEAREST);
   return new Promise((resolve, reject) => {
     docQuery
-      .populate('steps')
-      .populate('ingredients')
       .exec()
       .then(recipes => {
         if (recipes.length === 0)
@@ -56,8 +50,6 @@ function updateRecipe(id, taco) {
   const docQuery = Recipe.findOneAndUpdate({ _id: id }, taco);
   return new Promise((resolve, reject) => {
     docQuery
-      .populate('steps')
-      .populate('ingredients')
       .exec()
       .then(recipe => {
         if (!recipe) {
@@ -72,8 +64,21 @@ function updateRecipe(id, taco) {
   });
 }
 
+function addRecipe(taco) {
+  return new Promise((resolve, reject) => {
+    Recipe.create(taco)
+      .then(recipe => {
+        resolve(recipe);
+      })
+      .catch(err => {
+        reject(err.status);
+      });
+  });
+}
+
 module.exports = {
   getRecipes,
   getRecipe,
-  updateRecipe
+  updateRecipe,
+  addRecipe
 };
