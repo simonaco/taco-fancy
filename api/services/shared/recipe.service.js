@@ -21,7 +21,7 @@ function getRecipes(sort, order, page, size) {
       .exec()
       .then(recipes => {
         if (recipes.length === 0)
-          console.log('There are no results matching your query.');
+          resolve('There are no results matching your query.');
         else {
           countQuery.exec().then(count => {
             resolve({ items: recipes, totalItems: count });
@@ -43,10 +43,8 @@ function getRecipe(id) {
       .exec()
       .then(recipes => {
         if (recipes.length === 0)
-          console.log('There are no results matching your query.');
-        else {
-          resolve(recipes[0]);
-        }
+          resolve('There are no results matching your query.');
+        else resolve(recipes[0]);
       })
       .catch(err => {
         reject(err.status);
@@ -62,8 +60,9 @@ function updateRecipe(id, taco) {
       .populate('ingredients')
       .exec()
       .then(recipe => {
-        if (recipe) console.log('There are no results matching your query.');
-        else {
+        if (!recipe) {
+          resolve('There are no results matching your query.');
+        } else {
           resolve(recipe);
         }
       })
