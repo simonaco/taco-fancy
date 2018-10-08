@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { AppInsights } from 'applicationinsights-js';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { UserService } from './security/user.service';
 @Component({
   selector: 'app-root',
   template: '<router-outlet></router-outlet>',
@@ -9,10 +10,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class AppComponent implements OnInit {
   deviceInfo;
-  constructor(
-    public router: Router,
-    private deviceService: DeviceDetectorService
-  ) {}
+  constructor(public router: Router, private deviceService: DeviceDetectorService, public userService: UserService) {
+    userService.checkUserState();
+  }
 
   ngOnInit() {
     this.deviceInfo = this.deviceService.getDeviceInfo();

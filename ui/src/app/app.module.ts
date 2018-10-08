@@ -8,9 +8,10 @@ import { TacosListModule } from './tacos-list/tacos-list.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found.component';
 import { LandingComponent } from './landing/landing.component';
+import { AuthComponent } from './security/auth.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, LandingComponent],
+  declarations: [AppComponent, NotFoundComponent, LandingComponent, AuthComponent],
   imports: [
     BrowserModule,
     TacosListModule,
