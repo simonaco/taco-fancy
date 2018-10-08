@@ -7,6 +7,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 import { TacosListRoutingModule } from './tacos-list-routing.module';
 import { TacosListComponent } from './tacos-list.component';
@@ -23,7 +24,8 @@ import { TacoFormComponent } from './taco-form/taco-form.component';
     MatSortModule,
     MatCardModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule
   ],
   declarations: [TacosListComponent, TacoDetailComponent, TacoFormComponent]
 })
