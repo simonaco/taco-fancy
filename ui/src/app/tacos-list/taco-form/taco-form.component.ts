@@ -29,9 +29,17 @@ export class TacoFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/tacos', this.taco._id]);
+    if (this.taco._id) {
+      this.router.navigate(['/tacos', this.taco._id]);
+    } else {
+      this.router.navigate(['/tacos']);
+    }
   }
   save() {
-    this.tacosService.updateTaco(this.taco);
+    if (this.taco._id) {
+      this.tacosService.updateTaco(this.taco);
+    } else {
+      this.tacosService.addTaco(this.taco);
+    }
   }
 }

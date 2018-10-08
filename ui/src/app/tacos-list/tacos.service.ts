@@ -23,14 +23,14 @@ export class TacosService {
   }
 
   deleteTaco(taco: Taco) {
-    return this.http.delete(`${TACOS_API}/taco/${taco._id}`);
+    return this.http.delete(`${TACOS_API}/recipes/${taco._id}`);
   }
 
   addTaco(taco: Taco) {
-    return this.http.post<Taco>(`${TACOS_API}/taco/`, taco);
+    return this.http.post<Taco>(`${TACOS_API}/recipes/`, taco);
   }
 
   updateTaco(taco: Taco) {
-    return this.http.put<Taco>(`${TACOS_API}/taco/${taco._id}`, taco);
+    return this.http.put<Taco>(`${TACOS_API}/recipes/${taco._id}`, taco);
   }
 }

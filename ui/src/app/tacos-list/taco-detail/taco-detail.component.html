@@ -8,12 +8,12 @@
   <mat-card-content>
     <h3>Ingredients</h3>
     <p *ngFor="let ingredient of taco?.ingredients">
-      {{ingredient.quantity}} {{ingredient.measure}} {{ingredient.name}} {{ingredient.directions}}
+      {{ingredient}}
     </p>
     <mat-divider></mat-divider>
     <h3>Steps</h3>
     <p *ngFor="let step of taco?.steps">
-      {{step.number}} {{step.description}} {{step.time}}
+      {{step}}
     </p>
     <mat-divider></mat-divider>
     <h5>Tags</h5>

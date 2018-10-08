@@ -11,36 +11,21 @@
     <h3>Ingredients</h3>
     <p *ngFor="let ingredient of taco?.ingredients">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Quantity" value="{{ingredient?.quantity}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Measure" value="{{ingredient?.measure}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" value="{{ingredient?.name}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Directions" value="{{ingredient?.directions}}">
+        <input matInput placeholder="Details" value="{{ingredient}}">
       </mat-form-field>
     </p>
     <mat-divider></mat-divider>
     <h3>Steps</h3>
     <p *ngFor="let step of taco?.steps">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Number" value="{{step?.number}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Description" value="{{step?.description}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Time" value="{{step?.time}}">
+        <input matInput placeholder="Details" value="{{step}}">
       </mat-form-field>
     </p>
     <mat-divider></mat-divider>
     <h5>Tags</h5>
     <p *ngFor="let tag of taco?.tags">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="tag" value="{{tag}}">
+        <input matInput placeholder="Tag" value="{{tag}}">
       </mat-form-field>
     </p>
   </mat-card-content>
