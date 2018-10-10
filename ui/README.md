@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
+## Running with Autentication
+
+Run `ng serve --ssl true` and navigate to [https://127.0.0.1:4200](https://127.0.0.1:4200)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
