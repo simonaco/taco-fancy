@@ -10,11 +10,11 @@ import { UserService } from './security/user.service';
 })
 export class AppComponent implements OnInit {
   deviceInfo;
-  constructor(public router: Router, private deviceService: DeviceDetectorService, public userService: UserService) {
-    userService.checkUserState();
-  }
+  constructor(public router: Router, private deviceService: DeviceDetectorService, public userService: UserService) {}
 
   ngOnInit() {
+    this.userService.checkUserState();
+
     this.deviceInfo = this.deviceService.getDeviceInfo();
     AppInsights.downloadAndSetup({
       instrumentationKey: '2c847176-e1b4-4b63-b2c5-996753f5410b',

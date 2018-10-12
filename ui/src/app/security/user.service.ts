@@ -12,7 +12,9 @@ export class UserService {
   public userId;
   public greeting;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.checkUserState();
+  }
 
   public checkUserState() {
     this.authToken = window.sessionStorage.getItem(this.AUTH_TOKEN_STORAGE_NAME);
