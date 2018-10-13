@@ -11,7 +11,10 @@ import { UserService } from './security/user.service';
 export class AppComponent implements OnInit {
   deviceInfo;
   constructor(public router: Router, private deviceService: DeviceDetectorService, public userService: UserService) {
-    userService.checkUserState();
+    this.userService.checkUserState();
+    if (this.userService.isLoggedIn) {
+      this.userService.getUserDetails();
+    }
   }
 
   ngOnInit() {
